@@ -1,25 +1,26 @@
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+app.MapGet("/ready", () =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+    Console.WriteLine("Order Service is Readyyyyy *_- ");
+    return false;
+});
 
-app.UseHttpsRedirection();
 
-app.UseAuthorization();
+app.MapGet("/commit", () =>
+{
+    Console.WriteLine("Order Service is Committed");
+    return true;
+});
 
-app.MapControllers();
+
+app.MapGet("/rollback", () =>
+{
+    Console.WriteLine("Order Service is Rollbacked");
+});
+
 
 app.Run();
